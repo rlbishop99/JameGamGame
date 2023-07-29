@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: 50
+  dropProbability: 0.5
 --- !u!1 &337745814
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: 50
+  dropProbability: 0.5
 --- !u!1 &467190743
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: 50
+  dropProbability: 0.5
 --- !u!1 &535787241
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,6 +668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: -50
+  dropProbability: 0.5
 --- !u!1 &1220940271
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,6 +781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: -50
+  dropProbability: 0.5
 --- !u!1 &1345140830
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,6 +894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: -50
+  dropProbability: 0.5
 --- !u!1 &1547336091
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: 50
+  dropProbability: 0.5
 --- !u!1 &1686548685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,6 +1204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: 50
+  dropProbability: 0.5
 --- !u!1 &1963436658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,3 +1317,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spinSpeed: -50
+  dropProbability: 0.5
