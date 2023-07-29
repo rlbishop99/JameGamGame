@@ -5,6 +5,7 @@ using UnityEngine;
 public class drop : MonoBehaviour
 {
     public float speed;
+    public int dropProbability = 25;
     private bool isMoveDown = true;
     private bool isLocked = true;
     private float nextActionTime = 2f;
@@ -16,7 +17,7 @@ public class drop : MonoBehaviour
         if (Time.time > nextActionTime)
         {
             nextActionTime += period;
-            if (Random.Range(0, 100) < 25)
+            if (Random.Range(0, 100) < dropProbability)
             {
                 isLocked = false;
             }
