@@ -64,7 +64,7 @@ public class ProjectileMovement : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Gear") {
+        if(other.gameObject.tag == "GearHit") {
 
             other.gameObject.GetComponentInParent<drop>().isLocked = false;
             Destroy(gameObject);
