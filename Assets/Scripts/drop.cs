@@ -30,12 +30,12 @@ public class drop : MonoBehaviour
             this.transform.Translate(vector, Space.World);
 
             float yPos = this.transform.position.y;
-            if (yPos <= -1f || yPos >= 0.2f)
+            if (yPos <= -1f || yPos >= 0f)
             {
                 Vector3 mPosition;
                 Quaternion mRotation;
                 this.transform.GetPositionAndRotation(out mPosition, out mRotation);
-                mPosition.y = yPos <= -1f ? -1f : 0.2f;
+                mPosition.y = yPos <= -1f ? -1f : 0f;
 
                 this.transform.SetPositionAndRotation(mPosition, mRotation);
 
