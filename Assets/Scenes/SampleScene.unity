@@ -358,6 +358,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3040093053503530132, guid: 78d8785c1ac27cd41b67159eb0dac786, type: 3}
+      propertyPath: gameInput
+      value: 
+      objectReference: {fileID: 457811977}
     - target: {fileID: 3040093053503530133, guid: 78d8785c1ac27cd41b67159eb0dac786, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1672,7 +1676,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1481085801
 Rigidbody:
