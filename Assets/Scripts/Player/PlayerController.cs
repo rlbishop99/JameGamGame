@@ -77,6 +77,14 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = true;
     }
+
+    private void OnTriggerEnter(Collider obj)
+    {
+        if (obj.gameObject.CompareTag("Enemy")) 
+        {
+            Destroy(obj.gameObject);
+        }
+    }
 }
 
 
