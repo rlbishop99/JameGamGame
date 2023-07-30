@@ -8,6 +8,8 @@ public class drop : MonoBehaviour
     public int dropProbability = 25;
     private bool isMoveDown = true;
     public bool isLocked = true;
+
+    public bool isDown = false;
     private float nextActionTime = 2f;
     private float period = 3f;
 
@@ -25,6 +27,7 @@ public class drop : MonoBehaviour
 
         if (!isLocked)
         {
+            isDown = true;
             Vector3 vector = new Vector3(0f, speed * Time.deltaTime, 0f);
             vector *= isMoveDown ? -1 : 1;
             this.transform.Translate(vector, Space.World);

@@ -131,6 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 6844798632917961522, guid: 165722f4eb8cef34e97e328b1fa219ab, type: 3}
   timeBetweenThrows: 3
+  endPoint: {fileID: 0}
+  startPos: {fileID: 3376913695320280372}
   hitPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -148,7 +150,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  startPos: {fileID: 3376913695320280372}
+  shuffledArray: []
 --- !u!1 &3376913695320280373
 GameObject:
   m_ObjectHideFlags: 0

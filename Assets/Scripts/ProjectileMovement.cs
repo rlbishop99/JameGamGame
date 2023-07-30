@@ -20,18 +20,19 @@ public class ProjectileMovement : MonoBehaviour
         if(startPoint != null && endPoint != null) {
 
             MoveParabola(startPoint, endPoint);
+            //Debug.Log("Startpoint: " + startPoint.position + "Endpoint: " + endPoint.position);
 
         }
     }
 
-    public void MoveParabola(Transform start, Transform end)
+    public void MoveParabola(Transform pointA, Transform pointB)
     {
         float timeSinceStart = Time.time - startTime;
         float normalizedTime = timeSinceStart / duration;
 
         if (normalizedTime < 1f)
         {
-            Vector3 parabolicPosition = ParabolicInterpolation(start.position, end.position, maxHeight, normalizedTime);
+            Vector3 parabolicPosition = ParabolicInterpolation(pointA.position, pointB.position, maxHeight, normalizedTime);
             transform.position = parabolicPosition;
         }
         else
@@ -59,6 +60,8 @@ public class ProjectileMovement : MonoBehaviour
     public Transform AssignEnd(Transform end) {
 
         endPoint = end;
+        Debug.Log(end.position);
+        Debug.Log(endPoint.position);
         return endPoint;
 
     }
