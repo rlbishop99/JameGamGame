@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private bool isMoving;
     private bool isGrounded;
 
+    [SerializeField] private GameManager gameManager;
+
 
     private void Awake()
     {
@@ -83,10 +85,35 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider obj)
     {
-        if (obj.gameObject.CompareTag("Enemy")) 
+        if (obj.gameObject.CompareTag("EnemyHead")) 
         {
-            Destroy(obj.gameObject);
+            Destroy(obj.gameObject.transform.parent.gameObject);
+            rb.AddForce(new Vector3(0f, jumpPower, 0f), ForceMode.Impulse);
         }
+
+        if(obj.gameObject.CompareTag("Ground")) {
+
+            gameManager.ReloadScene();
+
+        }
+
+        if(obj.gameObject.CompareTag("Gear")) {
+
+            Debug.Log("collide w/gear");
+            gameObject.transform.SetParent(obj.transform, true);
+            
+        }
+    }
+
+    private void OnTriggerExit(Collider obj) {
+
+        if(obj.gameObject.CompareTag("Gear")) {
+
+            Debug.Log("jump off of gear");
+            gameObject.transform.parent = null;
+            
+        }
+
     }
 }
 
