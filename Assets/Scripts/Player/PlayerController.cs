@@ -63,8 +63,11 @@ public class PlayerController : MonoBehaviour
         Vector2 inputVector = gameInput.GetMovementVector();
         Vector3 direction = new Vector3(inputVector.x, 0f, inputVector.y);
         
-        transform.position += (direction * speed) * Time.deltaTime;
-        transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * lookSpeed);
+        if (direction != Vector3.zero)
+        {
+            transform.position += (direction * speed) * Time.deltaTime;
+            transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * lookSpeed);
+        }
     }
 
     private void HandleInteractions() {}
