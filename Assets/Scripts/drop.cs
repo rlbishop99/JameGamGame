@@ -9,7 +9,7 @@ public class drop : MonoBehaviour
     private bool isMoveDown = true;
     private bool isLocked = true;
     private float nextActionTime = 2f;
-    private float period = 2f;
+    private float period = 3f;
 
     // Update is called once per frame
     void Update()
