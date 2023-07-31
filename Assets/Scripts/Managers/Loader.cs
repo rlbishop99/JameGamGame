@@ -7,10 +7,15 @@ public static class Loader
 {
     public enum Scene {
         SampleScene,
+        ProjectileScene,
     }
 
 
     public static void Load(Scene targetScene) {
         SceneManager.LoadScene(targetScene.ToString());
+    }
+
+    public static void Reload() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
     }
 }

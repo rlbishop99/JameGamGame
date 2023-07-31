@@ -11,6 +11,8 @@ public class enemy : MonoBehaviour
     private Queue<Transform> prevTargets = new Queue<Transform>();
     private float targetDistance;
 
+    [SerializeField] private float playerDamage = 5f;
+
     // Awake is called when the script object is initialised
     void Awake()
     {
@@ -73,5 +75,9 @@ public class enemy : MonoBehaviour
         // Move our position a step closer to the target.
         var step = speed * Time.deltaTime; // calculate distance to move
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, transform.position.y, target.position.z), step);
+    }
+
+    public float GetPlayerDamage() {
+        return playerDamage;
     }
 }
