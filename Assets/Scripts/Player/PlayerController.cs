@@ -7,18 +7,23 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; private set; }
-
     private Rigidbody rb;
 
-    [SerializeField] private float speed = 3f;
+
+    # region Movement
+    [SerializeField] private float baseSpeed = 3f;
+    private float currentSpeed;
+    private float slowdownTimer;
     [SerializeField] private float jumpPower = 3f;
     [SerializeField] private float lookSpeed = 10f;
-    [SerializeField] private GameInput gameInput;
-
     private bool isMoving;
     private bool isGrounded;
+    # endregion
 
+    # region Managers
+    [SerializeField] private GameInput gameInput;
     [SerializeField] private GameManager gameManager;
+    # endregion
 
 
     private void Awake()
@@ -35,6 +40,8 @@ public class PlayerController : MonoBehaviour
     {
         gameInput.OnJumpAction += GameInput_OnJumpAction;
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+
+        currentSpeed = baseSpeed;
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
@@ -67,12 +74,24 @@ public class PlayerController : MonoBehaviour
         
         if (direction != Vector3.zero)
         {
-            transform.position += (direction * speed) * Time.deltaTime;
+            transform.position += (direction * currentSpeed) * Time.deltaTime;
             transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * lookSpeed);
+        }
+
+        if (slowdownTimer > 0) {
+            slowdownTimer -= Time.deltaTime;
+        } else {
+            currentSpeed = baseSpeed;
         }
     }
 
     private void HandleInteractions() {}
+
+    public void SlowDown(float factor = 0.5f, float durationSeconds = 5f)
+    {
+        currentSpeed = currentSpeed * factor;
+        slowdownTimer += durationSeconds;
+    }
 
     private void OnCollisionExit()
     {
@@ -85,35 +104,28 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider obj)
     {
-        if (obj.gameObject.CompareTag("EnemyHead")) 
+        switch (obj.gameObject.tag)
         {
-            Destroy(obj.gameObject.transform.parent.gameObject);
-            rb.AddForce(new Vector3(0f, jumpPower, 0f), ForceMode.Impulse);
-        }
-
-        if(obj.gameObject.CompareTag("Ground")) {
-
-            gameManager.ReloadScene();
-
-        }
-
-        if(obj.gameObject.CompareTag("Gear")) {
-
-            Debug.Log("collide w/gear");
-            gameObject.transform.SetParent(obj.transform, true);
-            
+            case "EnemyHead":
+                Destroy(obj.gameObject.transform.parent.gameObject);
+                rb.AddForce(new Vector3(0f, jumpPower, 0f), ForceMode.Impulse);
+                break;
+            case "Ground":
+                Loader.Load(Loader.Scene.SampleScene);
+                break;
+            case "Gear":
+                gameObject.transform.SetParent(obj.transform, true);
+                break;
         }
     }
 
     private void OnTriggerExit(Collider obj) {
-
-        if(obj.gameObject.CompareTag("Gear")) {
-
-            Debug.Log("jump off of gear");
-            gameObject.transform.parent = null;
-            
+        switch (obj.gameObject.tag)
+        {
+            case "Gear":
+                gameObject.transform.parent = null;
+                break;
         }
-
     }
 }
 
