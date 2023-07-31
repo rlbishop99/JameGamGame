@@ -1,27 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class enemy : MonoBehaviour
 {
-    public float speed = 1.0f;
-    private Vector3 targetPosition;
+    public float speed;
+    public Transform player;
+    public List<Transform> waypoints;
+    private Transform target;
+    private Queue<Transform> prevTargets = new Queue<Transform>();
+    private float targetDistance;
 
     // Awake is called when the script object is initialised
     void Awake()
     {
-        targetPosition = new Vector3(Random.Range(-10f, 10f), transform.position.y, Random.Range(-10f, 10f));
+        prevTargets.Enqueue(null);
+        prevTargets.Enqueue(null);
+
+        target = waypoints[0];
+        targetDistance = Vector3.Distance(transform.position, target.position);
+        foreach (Transform waypoint in waypoints)
+        {
+            float waypointDistance = Vector3.Distance(transform.position, waypoint.position);
+            if (waypointDistance < targetDistance)
+            {
+                targetDistance = waypointDistance;
+                target = waypoint;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Random.Range(0, 100) < 30)
+        if (targetDistance < 0.01f)
         {
-            targetPosition.x = Random.Range(-10f, 10f);
-            targetPosition.z = Random.Range(-10f, 10f);
+            prevTargets.Enqueue(target);
+            prevTargets.Dequeue();
+            targetDistance = Mathf.Infinity;
         }
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+
+        foreach (Transform waypoint in waypoints)
+        {
+            if (!prevTargets.Contains(waypoint) && waypoint.position.y > -0.001f)
+            {
+                float waypointDistance = Vector3.Distance(transform.position, new Vector3(waypoint.position.x, transform.position.y, waypoint.position.z));
+                if (waypointDistance < targetDistance)
+                {
+                    targetDistance = waypointDistance;
+                    target = waypoint;
+                }
+            }
+        }
+        if (Vector3.Distance(transform.position, player.position) <= targetDistance)
+        {
+            target = player;
+            targetDistance = Vector3.Distance(transform.position, player.position);
+        }
+
+        // Move our position a step closer to the target.
+        var step = speed * Time.deltaTime; // calculate distance to move
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, transform.position.y, target.position.z), step);
     }
 }
