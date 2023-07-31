@@ -8,6 +8,8 @@ TagManager:
   - EnemyHead
   - Ground
   - Gear
+  - GearHit
+  - FullGear
   layers:
   - Default
   - TransparentFX
