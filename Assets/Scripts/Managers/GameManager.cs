@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         // FatherTime,
     }
 
-    private float startingTimer = 0f;
+    private float startingTimer = 3f;
     private float eventTimerMax = 10f;
     private float eventTimer;
     private float playingTimer;
@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 
         state = State.WaitingToStart;
         Time.timeScale = 0f;
+        GameInput.Instance.DisableMovement();
     }
 
     private void Start() {
@@ -72,6 +73,8 @@ public class GameManager : MonoBehaviour
                 startingTimer -= Time.deltaTime;
                 if (startingTimer <= 0) {
                     state = State.Playing;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                    GameInput.Instance.EnableMovement();
                 }
                 break;
             case State.Playing:
