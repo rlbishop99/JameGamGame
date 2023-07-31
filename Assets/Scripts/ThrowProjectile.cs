@@ -5,17 +5,23 @@ using UnityEngine;
 public class ThrowProjectile : MonoBehaviour
 {
 
-    public GameObject projectile;
-    public float timeBetweenThrows;
+    [Header("Projectiles")]
+    public GameObject gearProjectile;
+    public GameObject enemyProjectile;
+    
+    [Header("Throwing Info")]
     public Transform endPoint = null;
     public Transform startPos;
-
     private float startTime = 2f;
     private bool hasStarted = false;
 
     private  Coroutine co;
     private int i = 0;
 
+    private int projectileType;
+    private Transform enemyPoint;
+
+    [Header("Transform Arrays")]
     public Transform[] hitPoints;
     public Transform[] shuffledArray;
 
@@ -45,14 +51,35 @@ public class ThrowProjectile : MonoBehaviour
 
     IEnumerator LobProjectile() {
 
-        while(true && i < shuffledArray.Length){
+        while(true) {
 
-            GetNewHitPoint(i);
-            projectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
-            projectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
-            Instantiate(projectile, startPos.position, Quaternion.identity);
-            Debug.Log("Lobbing another Projectile at: " + endPoint.position + " This is at index: " + i);
-            i++;
+            Debug.Log("Picking Projectile");
+            projectileType = Random.Range(1,3);
+            Debug.Log(projectileType);
+
+            
+            if(projectileType == 1) {
+
+                GetNewHitPoint(i);
+                gearProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
+                gearProjectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
+                Instantiate(gearProjectile, startPos.position, Quaternion.identity);
+                Debug.Log("Lobbing another Projectile at: " + endPoint.position + " This is at index: " + i);
+                i++;
+
+            }
+
+            if(projectileType == 2) {
+
+                GetNewEnemyPoint(i);
+                enemyProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
+                enemyProjectile.GetComponent<ProjectileMovement>().AssignEnd(enemyPoint);
+                Instantiate(enemyProjectile, startPos.position, Quaternion.identity);
+                Debug.Log("Lobbing enemy Projectile");
+
+            }
+
+            Debug.Log("Finished spawning, waiting.");
             yield return new WaitForSeconds(4f);
 
         }
@@ -62,6 +89,12 @@ public class ThrowProjectile : MonoBehaviour
     private void GetNewHitPoint(int index) {
 
         endPoint = shuffledArray[i];
+
+    }
+
+    private void GetNewEnemyPoint(int index) {
+
+        enemyPoint = shuffledArray[Random.Range(index, shuffledArray.Length)];
 
     }
 
@@ -78,14 +111,6 @@ public class ThrowProjectile : MonoBehaviour
             Transform value = shuffledArray[k];
             shuffledArray[k] = shuffledArray[n];
             shuffledArray[n] = value;
-        }
-
-
-        for(int j = 0; j < shuffledArray.Length; j++)
-        {
-
-            Debug.Log(shuffledArray[j].position);
-
         }
 
         return shuffledArray;

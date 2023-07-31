@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.95919245, b: 0.8254717, a: 1}
+      maxColor: {r: 1, g: 0.38039216, b: 0.2509804, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4864,7 +4864,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.9245283, g: 0.80548, b: 0.5189569, a: 1}
+  m_Color: {r: 1, g: 0.380028, b: 0.25, a: 1}
   m_Intensity: 2
   m_Range: 1.53
   m_SpotAngle: 30
@@ -4930,7 +4930,7 @@ GameObject:
   - component: {fileID: 6844798632917961480}
   - component: {fileID: 6844798632917961523}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: EnemyProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5049,4 +5049,4 @@ MonoBehaviour:
   maxHeight: 2
   duration: 3
   enemy: {fileID: 6369090793681924358, guid: 8718e19fb110a0d4db20e3bb682ae290, type: 3}
-  isEnemy: 0
+  isEnemy: 1

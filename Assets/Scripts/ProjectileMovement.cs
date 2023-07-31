@@ -10,6 +10,9 @@ public class ProjectileMovement : MonoBehaviour
 
     private float startTime;     // Time when the movement begins
 
+    public GameObject enemy;
+    public bool isEnemy = false;
+
     private void Start()
     {
         startTime = Time.time;
@@ -60,18 +63,21 @@ public class ProjectileMovement : MonoBehaviour
     public Transform AssignEnd(Transform end) {
 
         endPoint = end;
-        Debug.Log(end.position);
-        Debug.Log(endPoint.position);
         return endPoint;
 
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "GearHit") {
+        if(other.gameObject.tag == "GearHit" && !isEnemy) {
 
             other.gameObject.GetComponentInParent<drop>().isLocked = false;
             Destroy(gameObject);
 
+        } else if(other.gameObject.tag == "GearHit" && isEnemy) {
+
+            Instantiate(enemy, other.transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        
         }
     }
 }

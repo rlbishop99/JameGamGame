@@ -99,7 +99,6 @@ public class PlayerController : MonoBehaviour
 
         if(obj.gameObject.CompareTag("Gear")) {
 
-            Debug.Log("collide w/gear");
             gameObject.transform.SetParent(obj.transform, true);
             
         }
@@ -109,7 +108,6 @@ public class PlayerController : MonoBehaviour
 
         if(obj.gameObject.CompareTag("Gear")) {
 
-            Debug.Log("jump off of gear");
             gameObject.transform.parent = null;
             
         }
