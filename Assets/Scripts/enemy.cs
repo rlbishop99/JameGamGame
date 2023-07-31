@@ -5,18 +5,16 @@ using UnityEngine.AI;
 
 public class enemy : MonoBehaviour
 {
+    public float speed;
     public Transform player;
     public List<Transform> waypoints;
     private Transform target;
     private Queue<Transform> prevTargets = new Queue<Transform>();
     private float targetDistance;
-    private float speed = 1f;
-    private NavMeshAgent navMeshAgent;
 
     // Awake is called when the script object is initialised
     void Awake()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
         prevTargets.Enqueue(null);
         prevTargets.Enqueue(null);
 
@@ -36,11 +34,6 @@ public class enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (GetFlatDistance(transform, player) <= GetFlatDistance(transform, target))
-        // {
-        //     target = player;
-        //     targetDistance = GetFlatDistance(transform, player);
-        // }
         if (targetDistance < 0.01f)
         {
             prevTargets.Enqueue(target);
@@ -50,7 +43,7 @@ public class enemy : MonoBehaviour
 
         foreach (Transform waypoint in waypoints)
         {
-            if (!prevTargets.Contains(waypoint))
+            if (!prevTargets.Contains(waypoint) && waypoint.position.y > -0.001f)
             {
                 float waypointDistance = Vector3.Distance(transform.position, new Vector3(waypoint.position.x, transform.position.y, waypoint.position.z));
                 if (waypointDistance < targetDistance)
@@ -60,11 +53,14 @@ public class enemy : MonoBehaviour
                 }
             }
         }
+        if (Vector3.Distance(transform.position, player.position) <= targetDistance)
+        {
+            target = player;
+            targetDistance = Vector3.Distance(transform.position, player.position);
+        }
 
         // Move our position a step closer to the target.
         var step = speed * Time.deltaTime; // calculate distance to move
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, transform.position.y, target.position.z), step);
-
-        // navMeshAgent.destination = target.position;
     }
 }
