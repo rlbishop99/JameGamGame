@@ -15,6 +15,18 @@ public class enemy : MonoBehaviour
     // Awake is called when the script object is initialised
     void Awake()
     {
+
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        GameObject[] temp = GameObject.FindGameObjectsWithTag("FullGear");
+
+        foreach(var item in temp) {
+
+            waypoints.Add(item.transform);
+
+        }
+
+
         prevTargets.Enqueue(null);
         prevTargets.Enqueue(null);
 

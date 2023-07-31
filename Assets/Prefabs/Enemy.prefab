@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 6369090793681924356}
   - component: {fileID: 6369090793681924359}
   - component: {fileID: 6369090793681924363}
+  - component: {fileID: 1081294088}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -160,3 +161,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1081294088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6369090793681924358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0219d065e3a9f1241b8759da2ac224ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  player: {fileID: 0}
+  waypoints: []

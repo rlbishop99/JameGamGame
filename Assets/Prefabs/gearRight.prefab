@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 2196649576200949948}
   m_Layer: 0
   m_Name: gearRight
-  m_TagString: Gear
+  m_TagString: FullGear
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,6 +211,7 @@ MonoBehaviour:
   speed: 5
   dropProbability: 25
   isLocked: 1
+  isDown: 0
 --- !u!1 &6061928640071657731
 GameObject:
   m_ObjectHideFlags: 0
