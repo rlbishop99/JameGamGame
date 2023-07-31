@@ -42,7 +42,6 @@ public class ThrowProjectile : MonoBehaviour
 
         if(i == shuffledArray.Length) {
 
-            Debug.Log("Stopping Coroutine");
             StopCoroutine(co);
 
         }
@@ -53,9 +52,7 @@ public class ThrowProjectile : MonoBehaviour
 
         while(true) {
 
-            Debug.Log("Picking Projectile");
             projectileType = Random.Range(1,3);
-            Debug.Log(projectileType);
 
             
             if(projectileType == 1) {
@@ -64,7 +61,6 @@ public class ThrowProjectile : MonoBehaviour
                 gearProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
                 gearProjectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
                 Instantiate(gearProjectile, startPos.position, Quaternion.identity);
-                Debug.Log("Lobbing another Projectile at: " + endPoint.position + " This is at index: " + i);
                 i++;
 
             }
@@ -75,11 +71,9 @@ public class ThrowProjectile : MonoBehaviour
                 enemyProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
                 enemyProjectile.GetComponent<ProjectileMovement>().AssignEnd(enemyPoint);
                 Instantiate(enemyProjectile, startPos.position, Quaternion.identity);
-                Debug.Log("Lobbing enemy Projectile");
 
             }
 
-            Debug.Log("Finished spawning, waiting.");
             yield return new WaitForSeconds(4f);
 
         }
@@ -98,7 +92,7 @@ public class ThrowProjectile : MonoBehaviour
 
     }
 
-    public static Transform[] Shuffle(Transform[] array)
+    public Transform[] Shuffle(Transform[] array)
     {
         Transform[] shuffledArray = new Transform[array.Length];
         array.CopyTo(shuffledArray, 0);
@@ -114,5 +108,14 @@ public class ThrowProjectile : MonoBehaviour
         }
 
         return shuffledArray;
+    }
+
+    public void Reshuffle() {
+
+        StopAllCoroutines();
+        Shuffle(hitPoints);
+        co = StartCoroutine(LobProjectile());
+        Debug.Log("Reshuffled and Restarted Coroutine!");
+
     }
 }

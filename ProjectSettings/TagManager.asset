@@ -10,6 +10,7 @@ TagManager:
   - Gear
   - GearHit
   - FullGear
+  - Crank
   layers:
   - Default
   - TransparentFX

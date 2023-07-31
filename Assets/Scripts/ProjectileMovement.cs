@@ -11,7 +11,14 @@ public class ProjectileMovement : MonoBehaviour
     private float startTime;     // Time when the movement begins
 
     public GameObject enemy;
+    public GameObject crank;
     public bool isEnemy = false;
+
+    private void Awake() {
+        
+        crank = GameObject.FindGameObjectWithTag("Crank");
+
+    }
 
     private void Start()
     {
@@ -71,6 +78,7 @@ public class ProjectileMovement : MonoBehaviour
         if(other.gameObject.tag == "GearHit" && !isEnemy) {
 
             other.gameObject.GetComponentInParent<drop>().isLocked = false;
+            AddParentToCrank(other.gameObject, "FullGear");
             Destroy(gameObject);
 
         } else if(other.gameObject.tag == "GearHit" && isEnemy) {
@@ -79,5 +87,25 @@ public class ProjectileMovement : MonoBehaviour
             Destroy(gameObject);
         
         }
+    }
+
+    public void AddParentToCrank(GameObject child, string tag) {
+
+        Transform t = child.transform;
+
+        while(t.parent != null) {
+
+            if(t.parent.tag == tag) {
+
+                t = t.parent.transform;
+
+                crank.GetComponent<Crank>().downGears.Add(t);
+
+                break;
+
+            }
+
+        }
+
     }
 }

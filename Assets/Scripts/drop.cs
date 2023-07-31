@@ -9,25 +9,20 @@ public class drop : MonoBehaviour
     private bool isMoveDown = true;
     public bool isLocked = true;
 
-    public bool isDown = false;
-    private float nextActionTime = 2f;
-    private float period = 3f;
+    public GameObject crank;
+
+    private void Awake() {
+        
+        crank = GameObject.FindGameObjectWithTag("Crank");
+
+    }
 
     // Update is called once per frame
     void Update()
     {
-        // if (Time.time > nextActionTime)
-        // {
-        //     nextActionTime += period;
-        //     if (Random.Range(0, 100) < dropProbability)
-        //     {
-        //         isLocked = false;
-        //     }
-        // }
 
         if (!isLocked)
         {
-            isDown = true;
             Vector3 vector = new Vector3(0f, speed * Time.deltaTime, 0f);
             vector *= isMoveDown ? -1 : 1;
             this.transform.Translate(vector, Space.World);
@@ -45,6 +40,13 @@ public class drop : MonoBehaviour
 
                 isMoveDown = !isMoveDown;
                 isLocked = true;
+
+                if(isMoveDown && yPos >= 0f) {
+
+                    crank.GetComponent<Crank>().ClearGears();
+                    
+                }
+
             }
         }
     }

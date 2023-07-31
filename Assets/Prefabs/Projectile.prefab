@@ -5050,3 +5050,4 @@ MonoBehaviour:
   duration: 3
   enemy: {fileID: 6369090793681924358, guid: 8718e19fb110a0d4db20e3bb682ae290, type: 3}
   isEnemy: 0
+  crank: {fileID: 21658344284537789, guid: 2ad3f23abad16a346a0edf238dcfc5ec, type: 3}
