@@ -96,7 +96,6 @@ public class GameManager : MonoBehaviour
     private void TriggerEvent(TimeEvents timeEvent) {
         switch(timeEvent) {
             case TimeEvents.Slowdown:
-                Debug.Log("Slowing down player");
                 PlayerController.Instance.SlowDown();
                 break;
             default:
