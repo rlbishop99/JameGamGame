@@ -86,6 +86,11 @@ public class GameManager : MonoBehaviour
                     TriggerEvent(RandomTimeEvent());
                     eventTimer = eventTimerMax;
                 }
+                if (PlayerController.Instance.IsDead()) {
+                    state = State.GameOver;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                    Time.timeScale = 0f;
+                }
                 break;
             case State.GameOver:
                 break;
