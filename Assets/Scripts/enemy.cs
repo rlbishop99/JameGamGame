@@ -15,6 +15,7 @@ public class enemy : MonoBehaviour
     [SerializeField] private float playerHeal = 6f;
 
     private ParticleSystem spawnEffect;
+    public GameObject deathEffect;
 
     // Awake is called when the script object is initialised
     void Awake()
