@@ -12,8 +12,6 @@ public class ThrowProjectile : MonoBehaviour
     [Header("Throwing Info")]
     public Transform endPoint = null;
     public Transform startPos;
-    private float startTime = 2f;
-    private bool hasStarted = false;
 
     private  Coroutine co;
     private int i = 0;
@@ -28,24 +26,21 @@ public class ThrowProjectile : MonoBehaviour
     private void Awake() {
         shuffledArray = Shuffle(hitPoints);
     }
+    
+    private void Start() {
+        GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
+    }
+
+    private void GameManager_OnStateChanged(object sender, System.EventArgs e) {
+        if (GameManager.Instance.IsPlaying()) {
+            co = StartCoroutine(LobProjectile());
+        }
+    }
 
     private void Update() {
-        
-        startTime -= Time.deltaTime;
-
-        if(startTime <= 0 && hasStarted == false) {
-
-            hasStarted = true;
-            co = StartCoroutine(LobProjectile());
-
-        }
-
-        if(i == shuffledArray.Length) {
-
+        if (i == shuffledArray.Length && co != null) {
             StopCoroutine(co);
-
         }
-
     }
 
     IEnumerator LobProjectile() {
@@ -114,8 +109,10 @@ public class ThrowProjectile : MonoBehaviour
 
         StopAllCoroutines();
         Shuffle(hitPoints);
-        co = StartCoroutine(LobProjectile());
-        Debug.Log("Reshuffled and Restarted Coroutine!");
+        if (GameManager.Instance != null && GameManager.Instance.IsPlaying()) {
+            co = StartCoroutine(LobProjectile());
+            Debug.Log("Reshuffled and Restarted Coroutine!");
+        }
 
     }
 }
