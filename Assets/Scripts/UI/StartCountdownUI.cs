@@ -15,7 +15,6 @@ public class StartCountdownUI : MonoBehaviour
     }
 
     private void GameManager_OnStateChanged(object sender, System.EventArgs e) {
-        Debug.Log("changed states");
         if (GameManager.Instance.IsStarting()) {
             Show();
         } else {
@@ -29,12 +28,10 @@ public class StartCountdownUI : MonoBehaviour
     }
 
     private void Show() {
-        Debug.Log("showing countdown");
         gameObject.SetActive(true);
     }
 
     private void Hide() {
-        Debug.Log("hiding countdown");
         gameObject.SetActive(false);
     }
 }
