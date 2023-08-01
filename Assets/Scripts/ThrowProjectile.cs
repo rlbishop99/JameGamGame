@@ -45,15 +45,15 @@ public class ThrowProjectile : MonoBehaviour
 
             switch(lobCounter) {
 
-            case 7:
+            case 5:
                 Debug.Log("Time between waves = 3");
                 timeBetweenWaves = 3f;
                 break;;
-            case 17:
+            case 12:
                 Debug.Log("Time between waves = 2");
                 timeBetweenWaves = 2f;
                 break;
-            case 30:
+            case 20:
                 Debug.Log("Time between waves = 1");
                 timeBetweenWaves = 1f;
                 break;

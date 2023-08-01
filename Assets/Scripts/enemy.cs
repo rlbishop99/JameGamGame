@@ -51,6 +51,7 @@ public class enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (targetDistance < 0.01f)
         {
             prevTargets.Enqueue(target);
@@ -76,9 +77,13 @@ public class enemy : MonoBehaviour
             targetDistance = Vector3.Distance(transform.position, player.position);
         }
 
+        
         // Move our position a step closer to the target.
         var step = speed * Time.deltaTime; // calculate distance to move
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, transform.position.y, target.position.z), step);
+
+        Vector3 direction = new Vector3((target.position.x - transform.position.x), 0, (target.position.z - transform.position.z)).normalized;
+        transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 10f);
     }
 
     public float GetPlayerDamage() {
