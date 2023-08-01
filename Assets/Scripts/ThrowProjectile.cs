@@ -8,111 +8,73 @@ public class ThrowProjectile : MonoBehaviour
     [Header("Projectiles")]
     public GameObject gearProjectile;
     public GameObject enemyProjectile;
-    
+
     [Header("Throwing Info")]
     public Transform endPoint = null;
     public Transform startPos;
 
-    private  Coroutine co;
-    private int i = 0;
-
+    private Coroutine co;
     private int projectileType;
-    private Transform enemyPoint;
 
     [Header("Transform Arrays")]
-    public Transform[] hitPoints;
-    public Transform[] shuffledArray;
+    public List<Transform> hitPoints;
 
-    private void Awake() {
-        shuffledArray = Shuffle(hitPoints);
-    }
-    
-    private void Start() {
+    private void Start()
+    {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
     }
 
-    private void GameManager_OnStateChanged(object sender, System.EventArgs e) {
-        if (GameManager.Instance.IsPlaying()) {
+    private void GameManager_OnStateChanged(object sender, System.EventArgs e)
+    {
+        if (GameManager.Instance.IsPlaying())
+        {
             co = StartCoroutine(LobProjectile());
         }
     }
 
-    private void Update() {
-        if (i == shuffledArray.Length && co != null) {
-            StopCoroutine(co);
-        }
+    private void Update()
+    {
+
     }
 
-    IEnumerator LobProjectile() {
+    IEnumerator LobProjectile()
+    {
+        while (true)
+        {
+            if (hitPoints.Count > 0)
+            {
+                projectileType = Random.Range(1, 3);
+                endPoint = GetPoint();
 
-        while(true) {
+                if (projectileType == 1)
+                {
 
-            projectileType = Random.Range(1,3);
+                    gearProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
+                    gearProjectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
+                    Instantiate(gearProjectile, startPos.position, Quaternion.identity);
+                    hitPoints.Remove(endPoint);
+                }
 
-            
-            if(projectileType == 1) {
-
-                GetNewHitPoint(i);
-                gearProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
-                gearProjectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
-                Instantiate(gearProjectile, startPos.position, Quaternion.identity);
-                i++;
-
-            }
-
-            if(projectileType == 2) {
-
-                GetNewEnemyPoint(i);
-                enemyProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
-                enemyProjectile.GetComponent<ProjectileMovement>().AssignEnd(enemyPoint);
-                Instantiate(enemyProjectile, startPos.position, Quaternion.identity);
-
+                if (projectileType == 2)
+                {
+                    enemyProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
+                    enemyProjectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
+                    Instantiate(enemyProjectile, startPos.position, Quaternion.identity);
+                }
             }
 
             yield return new WaitForSeconds(4f);
-
         }
-        
     }
 
-    private void GetNewHitPoint(int index) {
-
-        endPoint = shuffledArray[i];
-
-    }
-
-    private void GetNewEnemyPoint(int index) {
-
-        enemyPoint = shuffledArray[Random.Range(index, shuffledArray.Length)];
-
-    }
-
-    public Transform[] Shuffle(Transform[] array)
+    private Transform GetPoint()
     {
-        Transform[] shuffledArray = new Transform[array.Length];
-        array.CopyTo(shuffledArray, 0);
-
-        int n = shuffledArray.Length;
-        while (n > 1)
-        {
-            n--;
-            int k = Random.Range(0, n + 1);
-            Transform value = shuffledArray[k];
-            shuffledArray[k] = shuffledArray[n];
-            shuffledArray[n] = value;
-        }
-
-        return shuffledArray;
+        return hitPoints[Random.Range(0, hitPoints.Count)];
     }
 
-    public void Reshuffle() {
-
-        StopAllCoroutines();
-        Shuffle(hitPoints);
-        if (GameManager.Instance != null && GameManager.Instance.IsPlaying()) {
-            co = StartCoroutine(LobProjectile());
-            Debug.Log("Reshuffled and Restarted Coroutine!");
-        }
-
+    public void ReUpGear(Transform gear)
+    {
+        hitPoints.Add(gear);
+        Debug.Log("Readded Gear!");
     }
 }

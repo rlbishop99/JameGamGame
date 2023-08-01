@@ -44,9 +44,7 @@ public class drop : MonoBehaviour
 
                 if (isMoveDown && yPos >= 0f)
                 {
-
                     crank.GetComponent<Crank>().ClearGears();
-
                 }
 
             }

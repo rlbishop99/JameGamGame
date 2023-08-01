@@ -9,32 +9,37 @@ public class Crank : MonoBehaviour
 
     public GameObject father;
 
-    private void Awake() {
-        ClearGears();
+    private void Awake()
+    {
+        downGears.Clear();
     }
 
-    
-    private void OnTriggerEnter() {
 
+    private void OnTriggerEnter()
+    {
         Debug.Log("Cranking Up!");
         CrankUp();
-
     }
 
-    public void CrankUp() {
-
-        foreach(Transform gear in downGears) {
-
+    public void CrankUp()
+    {
+        foreach (Transform gear in downGears)
+        {
             gear.gameObject.GetComponent<drop>().isLocked = false;
-
         }
-
     }
-    
-    public void ClearGears() {
 
-        downGears.Clear();
-        father.GetComponent<ThrowProjectile>().Reshuffle();
+    public void ClearGears()
+    {
+        foreach (Transform gear in downGears)
+        {
+            UpGear(gear);
+        }
+    }
 
+    public void UpGear(Transform gear)
+    {
+        downGears.Remove(gear);
+        father.GetComponent<ThrowProjectile>().ReUpGear(gear);
     }
 }
