@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour, IHasHealth
     public event EventHandler<IHasHealth.OnHealthChangedEventArgs> OnHealthChanged;
     # endregion
 
+    private Crank selectedCrank;
+
     private void Awake()
     {
         if (Instance != null) {
@@ -52,7 +54,9 @@ public class PlayerController : MonoBehaviour, IHasHealth
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
-        Debug.Log("Interacted");
+        if (selectedCrank != null) {
+            selectedCrank.CrankUp();
+        }
     }
 
     private void GameInput_OnJumpAction(object sender, EventArgs e)
@@ -92,7 +96,21 @@ public class PlayerController : MonoBehaviour, IHasHealth
         }
     }
 
-    private void HandleInteractions() {}
+    private void HandleInteractions()
+    {
+        Vector2 inputVector = gameInput.GetMovementVector();
+
+        Vector3 direction = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        float interactDistance = 2f;
+        if (Physics.Raycast(transform.position, direction, out RaycastHit raycastHit, interactDistance)) {
+            if (raycastHit.transform.TryGetComponent(out Crank crank)) {
+                selectedCrank = crank;
+            } else {
+                selectedCrank = null;
+            }
+        }
+    }
 
     private void HandleHealth()
     {
