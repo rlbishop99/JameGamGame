@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour, IHasHealth
     private bool isMoving;
     private float canJump = 0.2f;
     private float resetJump = 0f;
-    private bool hasJumped = false;
     # endregion
 
     # region Managers
@@ -74,7 +73,6 @@ public class PlayerController : MonoBehaviour, IHasHealth
     private void Update()
     {        
         canJump -= Time.deltaTime;
-        Debug.Log(canJump);
 
         HandleHealth();
         HandleMovement();
