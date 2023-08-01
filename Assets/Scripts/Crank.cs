@@ -14,13 +14,6 @@ public class Crank : MonoBehaviour
         downGears.Clear();
     }
 
-
-    private void OnTriggerEnter()
-    {
-        Debug.Log("Cranking Up!");
-        CrankUp();
-    }
-
     public void CrankUp()
     {
         foreach (Transform gear in downGears)
