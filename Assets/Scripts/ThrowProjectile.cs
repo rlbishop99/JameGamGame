@@ -13,6 +13,9 @@ public class ThrowProjectile : MonoBehaviour
     public Transform endPoint = null;
     public Transform startPos;
 
+    [Header("Coroutine Info")]
+    public float timeBetweenWaves;
+    private int lobCounter;
     private Coroutine co;
     private int projectileType;
 
@@ -21,6 +24,8 @@ public class ThrowProjectile : MonoBehaviour
 
     private void Start()
     {
+        timeBetweenWaves = 4f;
+        lobCounter = 0;
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
     }
 
@@ -32,38 +37,55 @@ public class ThrowProjectile : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-
-    }
-
     IEnumerator LobProjectile()
     {
+
         while (true)
         {
+
+            switch(lobCounter) {
+
+            case 7:
+                Debug.Log("Time between waves = 3");
+                timeBetweenWaves = 3f;
+                break;;
+            case 17:
+                Debug.Log("Time between waves = 2");
+                timeBetweenWaves = 2f;
+                break;
+            case 30:
+                Debug.Log("Time between waves = 1");
+                timeBetweenWaves = 1f;
+                break;
+            default:
+                Debug.Log("No change in time");
+                break;
+
+            }
+
             if (hitPoints.Count > 0)
             {
-                projectileType = Random.Range(1, 3);
+                projectileType = Random.Range(1, 11);
                 endPoint = GetPoint();
 
-                if (projectileType == 1)
+                if (projectileType <=4 )
                 {
 
                     gearProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
                     gearProjectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
                     Instantiate(gearProjectile, startPos.position, Quaternion.identity);
                     hitPoints.Remove(endPoint);
-                }
+                } else {
 
-                if (projectileType == 2)
-                {
                     enemyProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
                     enemyProjectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
                     Instantiate(enemyProjectile, startPos.position, Quaternion.identity);
+
                 }
             }
 
-            yield return new WaitForSeconds(4f);
+            lobCounter++;
+            yield return new WaitForSeconds(timeBetweenWaves);
         }
     }
 

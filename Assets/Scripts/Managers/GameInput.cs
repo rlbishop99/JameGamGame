@@ -55,6 +55,7 @@ public class GameInput : MonoBehaviour
     private void Jump_performed(InputAction.CallbackContext context)
     {
         OnJumpAction?.Invoke(this, EventArgs.Empty);
+        PlayerController.Instance.SetJump();
     }
 
     private void Interact_performed(InputAction.CallbackContext context)

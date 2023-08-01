@@ -17,19 +17,24 @@ public class GameOverUI : MonoBehaviour
             Hide();
         }
     }
+
     public void Replay() {
         Debug.Log("Replaying!");
+        Time.timeScale = 1f;
         Loader.Load(Loader.Scene.ProjectileScene);
 
     }
 
     public void ToMainMenu() {
+        Debug.Log("Going to Main Menu.");
+        Time.timeScale = 1f;
         Loader.Load(Loader.Scene.MainMenu);
 
     }
 
     public void Quit() {
         Debug.Log("Quitting game");
+        Time.timeScale = 1f;
         Application.Quit();
     }
 
