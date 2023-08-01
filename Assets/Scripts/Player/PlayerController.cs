@@ -1,7 +1,5 @@
-    using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using System;
 
 public class PlayerController : MonoBehaviour, IHasHealth
@@ -191,6 +189,8 @@ public class PlayerController : MonoBehaviour, IHasHealth
     }
 
     private void Die() {
-        Loader.Load(Loader.Scene.ProjectileScene);
+
+        gameManager.GameOverUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 }

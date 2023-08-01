@@ -166,7 +166,7 @@ MonoBehaviour:
   speed: 5
   dropProbability: 25
   isLocked: 1
-  isDown: 0
+  crank: {fileID: 0}
 --- !u!1 &5327627194315090827
 GameObject:
   m_ObjectHideFlags: 0

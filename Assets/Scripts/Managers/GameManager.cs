@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnpaused;
 
+    public GameObject GameOverUI;
+
     private enum State {
         WaitingToStart,
         Starting,
