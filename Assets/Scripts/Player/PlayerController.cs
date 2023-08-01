@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour, IHasHealth
     [SerializeField] private float healthMax = 60f;
     private float healthCurrent;
     public event EventHandler<IHasHealth.OnHealthChangedEventArgs> OnHealthChanged;
+    private bool isDead;
     # endregion
 
     private Crank selectedCrank;
@@ -189,8 +190,10 @@ public class PlayerController : MonoBehaviour, IHasHealth
     }
 
     private void Die() {
+        isDead = true;
+    }
 
-        gameManager.GameOverUI.SetActive(true);
-        Time.timeScale = 0f;
+    public bool IsDead() {
+        return isDead;
     }
 }
