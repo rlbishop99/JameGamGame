@@ -26,10 +26,12 @@ public class PlayerController : MonoBehaviour, IHasHealth
     # endregion
 
     # region Stats
-    [SerializeField] private float healthMax = 25f;
+    [SerializeField] private float healthMax = 60f;
     private float healthCurrent;
     public event EventHandler<IHasHealth.OnHealthChangedEventArgs> OnHealthChanged;
     # endregion
+
+    private Crank selectedCrank;
 
     private void Awake()
     {
@@ -47,12 +49,14 @@ public class PlayerController : MonoBehaviour, IHasHealth
         gameInput.OnInteractAction += GameInput_OnInteractAction;
 
         speedCurrent = speedMax;
-        healthCurrent = healthMax;
+        healthCurrent = healthMax + GameManager.Instance.GetStartingTimer();
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
-        Debug.Log("Interacted");
+        if (selectedCrank != null) {
+            selectedCrank.CrankUp();
+        }
     }
 
     private void GameInput_OnJumpAction(object sender, EventArgs e)
@@ -64,6 +68,7 @@ public class PlayerController : MonoBehaviour, IHasHealth
 
     private void Update()
     {
+        HandleHealth();
         HandleMovement();
         HandleInteractions();
     }
@@ -91,7 +96,33 @@ public class PlayerController : MonoBehaviour, IHasHealth
         }
     }
 
-    private void HandleInteractions() {}
+    private void HandleInteractions()
+    {
+        Vector2 inputVector = gameInput.GetMovementVector();
+
+        Vector3 direction = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        float interactDistance = 2f;
+        if (Physics.Raycast(transform.position, direction, out RaycastHit raycastHit, interactDistance)) {
+            if (raycastHit.transform.TryGetComponent(out Crank crank)) {
+                selectedCrank = crank;
+            } else {
+                selectedCrank = null;
+            }
+        }
+    }
+
+    private void HandleHealth()
+    {
+        healthCurrent -= Time.deltaTime;
+        if (healthCurrent <= 0) {
+            Die();
+        }
+
+        OnHealthChanged?.Invoke(this, new IHasHealth.OnHealthChangedEventArgs {
+            healthNormalized = healthCurrent/healthMax
+        });
+    }
 
     public void SlowDown(float factor = 0.5f, float durationSeconds = 5f)
     {
@@ -133,6 +164,11 @@ public class PlayerController : MonoBehaviour, IHasHealth
             case "EnemyHead":
                 Destroy(obj.gameObject.transform.parent.gameObject);
                 rb.AddForce(new Vector3(0f, jumpPower, 0f), ForceMode.Impulse);
+                healthCurrent += obj.gameObject.transform.parent.gameObject.GetComponent<enemy>().GetPlayerHeal();
+                healthCurrent = Mathf.Min(healthCurrent, healthMax);
+                OnHealthChanged?.Invoke(this, new IHasHealth.OnHealthChangedEventArgs {
+                    healthNormalized = healthCurrent/healthMax
+                });
                 break;
             case "Ground":
                 Die();
