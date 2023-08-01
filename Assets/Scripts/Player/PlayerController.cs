@@ -167,6 +167,9 @@ public class PlayerController : MonoBehaviour, IHasHealth
         switch (obj.gameObject.tag)
         {
             case "EnemyHead":
+
+                GameObject effect = (GameObject)Instantiate(obj.gameObject.GetComponentInParent<enemy>().deathEffect, transform.position, Quaternion.identity);
+                Destroy(effect, 3f);
                 Destroy(obj.gameObject.transform.parent.gameObject);
                 rb.AddForce(new Vector3(0f, (jumpPower - 1), 0f), ForceMode.Impulse);
                 healthCurrent += obj.gameObject.transform.parent.gameObject.GetComponent<enemy>().GetPlayerHeal();
