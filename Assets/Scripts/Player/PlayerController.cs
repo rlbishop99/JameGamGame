@@ -12,10 +12,12 @@ public class PlayerController : MonoBehaviour, IHasHealth
     [SerializeField] private float speedMax = 3f;
     private float speedCurrent;
     private float slowdownTimer;
-    [SerializeField] private float jumpPower = 3f;
+    [SerializeField] private float jumpPower = 2f;
     [SerializeField] private float lookSpeed = 10f;
     private bool isMoving;
-    private bool isGrounded;
+    private float canJump = 0.2f;
+    private float resetJump = 0f;
+    private bool hasJumped = false;
     # endregion
 
     # region Managers
@@ -62,13 +64,18 @@ public class PlayerController : MonoBehaviour, IHasHealth
 
     private void GameInput_OnJumpAction(object sender, EventArgs e)
     {
-        if (!isGrounded) return;
+        if (canJump <= 0) return;
 
         rb.AddForce(new Vector3(0f, jumpPower, 0f), ForceMode.Impulse);
+        canJump = 0f;
+        resetJump = 0f;
     }
 
     private void Update()
-    {
+    {        
+        canJump -= Time.deltaTime;
+        Debug.Log(canJump);
+
         HandleHealth();
         HandleMovement();
         HandleInteractions();
@@ -86,8 +93,13 @@ public class PlayerController : MonoBehaviour, IHasHealth
         
         if (direction != Vector3.zero)
         {
+            isMoving = true;
             transform.position += (direction * speedCurrent) * Time.deltaTime;
             transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * lookSpeed);
+        } else {
+
+            isMoving = false;
+
         }
 
         if (slowdownTimer > 0) {
@@ -131,21 +143,12 @@ public class PlayerController : MonoBehaviour, IHasHealth
         slowdownTimer += durationSeconds;
     }
 
-    private void OnCollisionExit()
-    {
-        isGrounded = false;
-    }
-    private void OnCollisionStay()
-    {
-        isGrounded = true;
-    }
-
     private void OnCollisionEnter(Collision obj)
     {
+
         switch (obj.gameObject.tag)
         {
             case "Enemy":
-                healthCurrent -= obj.gameObject.GetComponent<enemy>().GetPlayerDamage();
                 OnHealthChanged?.Invoke(this, new IHasHealth.OnHealthChangedEventArgs {
                     healthNormalized = healthCurrent/healthMax
                 });
@@ -160,11 +163,12 @@ public class PlayerController : MonoBehaviour, IHasHealth
 
     private void OnTriggerEnter(Collider obj)
     {
+
         switch (obj.gameObject.tag)
         {
             case "EnemyHead":
                 Destroy(obj.gameObject.transform.parent.gameObject);
-                rb.AddForce(new Vector3(0f, jumpPower, 0f), ForceMode.Impulse);
+                rb.AddForce(new Vector3(0f, (jumpPower - 1), 0f), ForceMode.Impulse);
                 healthCurrent += obj.gameObject.transform.parent.gameObject.GetComponent<enemy>().GetPlayerHeal();
                 healthCurrent = Mathf.Min(healthCurrent, healthMax);
                 OnHealthChanged?.Invoke(this, new IHasHealth.OnHealthChangedEventArgs {
@@ -189,11 +193,25 @@ public class PlayerController : MonoBehaviour, IHasHealth
         }
     }
 
+    private void OnTriggerStay() {
+        resetJump += Time.deltaTime;
+
+        if(resetJump >= .15f) {
+
+            canJump = .2f;
+
+        }
+    }
+
     private void Die() {
         isDead = true;
     }
 
     public bool IsDead() {
         return isDead;
+    }
+
+    public void SetJump() {
+        canJump = 0f;
     }
 }

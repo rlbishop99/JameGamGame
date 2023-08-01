@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnpaused;
 
-    public GameObject GameOverUI;
-
     private enum State {
         WaitingToStart,
         Starting,
@@ -82,10 +80,10 @@ public class GameManager : MonoBehaviour
             case State.Playing:
                 playingTimer += Time.deltaTime;
                 eventTimer -= Time.deltaTime;
-                if (eventTimer <= 0) {
-                    TriggerEvent(RandomTimeEvent());
-                    eventTimer = eventTimerMax;
-                }
+                // if (eventTimer <= 0) {
+                //     TriggerEvent(RandomTimeEvent());
+                //     eventTimer = eventTimerMax;
+                // }
                 if (PlayerController.Instance.IsDead()) {
                     state = State.GameOver;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
