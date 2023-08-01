@@ -11,7 +11,8 @@ public class enemy : MonoBehaviour
     private Queue<Transform> prevTargets = new Queue<Transform>();
     private float targetDistance;
 
-    [SerializeField] private float playerDamage = 5f;
+    [SerializeField] private float playerDamage = 1f;
+    [SerializeField] private float playerHeal = 3f;
 
     // Awake is called when the script object is initialised
     void Awake()
@@ -79,5 +80,20 @@ public class enemy : MonoBehaviour
 
     public float GetPlayerDamage() {
         return playerDamage;
+    }
+    
+    public float GetPlayerHeal() {
+        return playerHeal;
+
+    }
+
+    private void OnCollisionEnter(Collision obj) {
+        switch (obj.gameObject.tag) {
+            case "Ground":
+                Destroy(gameObject);
+                break;
+            default:
+                break;
+        }
     }
 }
