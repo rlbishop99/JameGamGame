@@ -11,8 +11,9 @@ public class drop : MonoBehaviour
 
     public GameObject crank;
 
-    private void Awake() {
-        
+    private void Awake()
+    {
+
         crank = GameObject.FindGameObjectWithTag("Crank");
 
     }
@@ -29,22 +30,23 @@ public class drop : MonoBehaviour
 
             float yPos = this.transform.position.y;
 
-            if (yPos <= -4f || yPos >= 0f)
+            if (yPos <= -10f || yPos >= 0f)
             {
                 Vector3 mPosition;
                 Quaternion mRotation;
                 this.transform.GetPositionAndRotation(out mPosition, out mRotation);
-                mPosition.y = yPos <= -4f ? -4f : 0f;
+                mPosition.y = yPos <= -10f ? -10f : 0f;
 
                 this.transform.SetPositionAndRotation(mPosition, mRotation);
 
                 isMoveDown = !isMoveDown;
                 isLocked = true;
 
-                if(isMoveDown && yPos >= 0f) {
+                if (isMoveDown && yPos >= 0f)
+                {
 
                     crank.GetComponent<Crank>().ClearGears();
-                    
+
                 }
 
             }
