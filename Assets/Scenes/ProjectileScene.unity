@@ -376,6 +376,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3040093053503530132, guid: 78d8785c1ac27cd41b67159eb0dac786, type: 3}
+      propertyPath: speedMax
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3040093053503530132, guid: 78d8785c1ac27cd41b67159eb0dac786, type: 3}
       propertyPath: gameInput
       value: 
       objectReference: {fileID: 457811977}
