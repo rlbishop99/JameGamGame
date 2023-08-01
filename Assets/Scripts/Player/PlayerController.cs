@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour, IHasHealth
 
     private Crank selectedCrank;
 
+    [SerializeField] private CapsuleCollider bodyCollider;
+
     private void Awake()
     {
         if (Instance != null) {
@@ -103,8 +105,8 @@ public class PlayerController : MonoBehaviour, IHasHealth
         Vector3 direction = new Vector3(inputVector.x, 0f, inputVector.y);
 
         float interactDistance = 2f;
-        if (Physics.Raycast(transform.position, direction, out RaycastHit raycastHit, interactDistance)) {
-            if (raycastHit.transform.TryGetComponent(out Crank crank)) {
+        if (Physics.CapsuleCast(transform.position, transform.position + Vector3.up *  bodyCollider.height, bodyCollider.radius, direction, out RaycastHit hitInfo, interactDistance)) {
+            if (hitInfo.transform.TryGetComponent(out Crank crank)) {
                 selectedCrank = crank;
             } else {
                 selectedCrank = null;

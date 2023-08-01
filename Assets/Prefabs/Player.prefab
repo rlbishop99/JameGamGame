@@ -265,6 +265,7 @@ MonoBehaviour:
   gameInput: {fileID: 0}
   gameManager: {fileID: 0}
   healthMax: 25
+  bodyCollider: {fileID: 3040093053519896248}
 --- !u!54 &559572298
 Rigidbody:
   m_ObjectHideFlags: 0
