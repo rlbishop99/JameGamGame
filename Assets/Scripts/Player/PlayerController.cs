@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour, IHasHealth
 
     # region Stats
     [SerializeField] private float healthMax = 60f;
+    [SerializeField] public float healthGain = 6f;
     private float healthCurrent;
     public event EventHandler<IHasHealth.OnHealthChangedEventArgs> OnHealthChanged;
     private bool isDead;
@@ -181,7 +182,7 @@ public class PlayerController : MonoBehaviour, IHasHealth
 
                 rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
                 rb.AddForce(new Vector3(0f, (jumpPower - 1), 0f), ForceMode.Impulse);
-                healthCurrent += obj.gameObject.transform.parent.gameObject.GetComponent<enemy>().GetPlayerHeal();
+                healthCurrent += healthGain;
                 healthCurrent = Mathf.Min(healthCurrent, healthMax);
                 OnHealthChanged?.Invoke(this, new IHasHealth.OnHealthChangedEventArgs {
                     healthNormalized = healthCurrent/healthMax
