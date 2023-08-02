@@ -12,7 +12,6 @@ public class enemy : MonoBehaviour
     private float targetDistance;
 
     [SerializeField] private float playerDamage = 1f;
-    [SerializeField] private float playerHeal = 6f;
 
     private ParticleSystem spawnEffect;
     public GameObject deathEffect;
@@ -88,11 +87,6 @@ public class enemy : MonoBehaviour
 
     public float GetPlayerDamage() {
         return playerDamage;
-    }
-    
-    public float GetPlayerHeal() {
-        return playerHeal;
-
     }
 
     private void OnCollisionEnter(Collision obj) {

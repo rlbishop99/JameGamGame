@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public GameObject musicManager;
+    public GameObject pauseUI;
 
     public event EventHandler OnStateChanged;
     public event EventHandler OnGamePaused;
@@ -153,9 +154,12 @@ public class GameManager : MonoBehaviour
     public void TogglePause() {
         isPaused = !isPaused;
         if (isPaused) {
+            musicManager.GetComponent<MusicManager>().SetAndPlaySound("ButtonSelect");
+            pauseUI.SetActive(true);
             Time.timeScale = 0f;
             OnGamePaused?.Invoke(this, EventArgs.Empty);
         } else {
+            pauseUI.SetActive(false);
             Time.timeScale = 1f;
             OnGameUnpaused?.Invoke(this, EventArgs.Empty);
         }

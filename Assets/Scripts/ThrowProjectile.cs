@@ -47,14 +47,21 @@ public class ThrowProjectile : MonoBehaviour
 
             switch(lobCounter) {
 
-            case 5:
+            case 3:
                 timeBetweenWaves = 3f;
-                break;;
-            case 12:
+                PlayerController.Instance.healthGain = 5f;
+                break;
+            case 9:
+                PlayerController.Instance.healthGain = 4f;
                 timeBetweenWaves = 2f;
                 break;
-            case 20:
+            case 22:
+                PlayerController.Instance.healthGain = 3f;
                 timeBetweenWaves = 1f;
+                break;
+            case 35:
+                PlayerController.Instance.healthGain = 2f;
+                timeBetweenWaves = .8f;
                 break;
             default:
                 break;
