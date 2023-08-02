@@ -14,19 +14,15 @@ public class ProjectileMovement : MonoBehaviour
     public GameObject crank;
     public bool isEnemy = false;
 
-    private void Awake() {
-        
-        crank = GameObject.FindGameObjectWithTag("Crank");
-
-    }
-
     private void Start()
     {
+        crank = GameObject.FindGameObjectWithTag("Crank");
         startTime = Time.time;
     }
 
     private void Update()
     {
+
         if(startPoint != null && endPoint != null) {
 
             MoveParabola(startPoint, endPoint);
@@ -96,6 +92,7 @@ public class ProjectileMovement : MonoBehaviour
         while(t.parent != null) {
 
             if(t.parent.tag == tag) {
+
 
                 t = t.parent.transform;
 

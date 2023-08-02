@@ -46,19 +46,15 @@ public class ThrowProjectile : MonoBehaviour
             switch(lobCounter) {
 
             case 5:
-                Debug.Log("Time between waves = 3");
                 timeBetweenWaves = 3f;
                 break;;
             case 12:
-                Debug.Log("Time between waves = 2");
                 timeBetweenWaves = 2f;
                 break;
             case 20:
-                Debug.Log("Time between waves = 1");
                 timeBetweenWaves = 1f;
                 break;
             default:
-                Debug.Log("No change in time");
                 break;
 
             }
@@ -97,6 +93,5 @@ public class ThrowProjectile : MonoBehaviour
     public void ReUpGear(Transform gear)
     {
         hitPoints.Add(gear);
-        Debug.Log("Readded Gear!");
     }
 }
