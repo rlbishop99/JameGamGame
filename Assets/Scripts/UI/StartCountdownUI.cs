@@ -7,7 +7,7 @@ public class StartCountdownUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text countdownText;
 
-    public MusicManager musicManager;
+    public GameObject musicManager;
     private float timeBetweenTicks = 1f;
 
     // Start is called before the first frame update
@@ -15,6 +15,8 @@ public class StartCountdownUI : MonoBehaviour
     {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;    
         Hide();
+
+        musicManager = GameObject.FindGameObjectWithTag("MusicManager");
     }
 
     private void GameManager_OnStateChanged(object sender, System.EventArgs e) {
@@ -31,7 +33,7 @@ public class StartCountdownUI : MonoBehaviour
 
         if(timeBetweenTicks <= 0){
 
-            musicManager.SetAndPlaySound("TickDown");
+            musicManager.GetComponent<MusicManager>().SetAndPlaySound("TickDown");
             timeBetweenTicks = 1f;
 
         }

@@ -1,18 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
 {
+
+    public static MusicManager Instance { get; private set; }
     public AudioSource activeAudio;
 
     public AudioClip[] music;
     public AudioClip[] sounds;
 
-    private AudioClip clip;
+    private AudioClip soundClip;
+    private AudioClip musicClip;
 
     private void Start() {
-        DontDestroyOnLoad(gameObject);
+
+        if (Instance != null) {
+            Debug.LogError("More than one MusicManager instance.");
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        DontDestroyOnLoad(this.gameObject);
+
+        if(SceneManager.GetActiveScene().name == "MainMenu") {
+
+            SetAndPlayMusic("MainMenu");
+
+        }
+    }
+
+    public void SetAndPlayMusic(string name) {
+
+        switch(name) {
+
+            case "MainMenu":
+                musicClip = music[0];
+                break;
+            case "InGame":
+                musicClip = music[1];
+                break;
+        }
+
+        activeAudio.clip = musicClip;
+        activeAudio.Play();
+
     }
 
     public void SetAndPlaySound(string name) {
@@ -20,37 +56,41 @@ public class MusicManager : MonoBehaviour
         switch(name){
 
             case "ButtonSelect":
-                clip = sounds[0];
+                soundClip = sounds[0];
                 break;
             case "Crank":
-                clip = sounds[1];
+                soundClip = sounds[1];
                 break;
             case "EnemyDeath":
-                clip = sounds[2];
+                soundClip = sounds[2];
                 break;
             case "GearDown":
-                clip = sounds[3];
+                soundClip = sounds[3];
                 break;
             case "Jump":
-                clip = sounds[4];
+                soundClip = sounds[4];
                 break;
             case "Spawn":
-                clip = sounds[5];
+                soundClip = sounds[5];
                 break;
             case "PlayerDeath":
-                clip = sounds[6];
+                soundClip = sounds[6];
                 break;
             case "TickDown":
-                clip = sounds[7];
+                soundClip = sounds[7];
                 break;
             case "RoundStart":
-                clip = sounds[8];
+                soundClip = sounds[8];
                 break;
         }
 
-        Debug.Log(clip.name);
+        activeAudio.PlayOneShot(soundClip);
 
-        activeAudio.PlayOneShot(clip);
+    }
+
+    public void Stop() {
+
+        activeAudio.Stop();
 
     }
 

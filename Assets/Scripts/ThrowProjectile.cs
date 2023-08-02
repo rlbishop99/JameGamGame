@@ -13,6 +13,8 @@ public class ThrowProjectile : MonoBehaviour
     public Transform endPoint = null;
     public Transform startPos;
 
+    public Animator anim;
+
     [Header("Coroutine Info")]
     public float timeBetweenWaves;
     private int lobCounter;
@@ -70,11 +72,13 @@ public class ThrowProjectile : MonoBehaviour
                     gearProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
                     gearProjectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
                     Instantiate(gearProjectile, startPos.position, Quaternion.identity);
+                    anim.SetTrigger("Throwing");
                     hitPoints.Remove(endPoint);
                 } else {
 
                     enemyProjectile.GetComponent<ProjectileMovement>().AssignStart(startPos);
                     enemyProjectile.GetComponent<ProjectileMovement>().AssignEnd(endPoint);
+                    anim.SetTrigger("Throwing");
                     Instantiate(enemyProjectile, startPos.position, Quaternion.identity);
 
                 }

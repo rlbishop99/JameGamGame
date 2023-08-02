@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public MusicManager musicManager;
+    public GameObject musicManager;
 
     public event EventHandler OnStateChanged;
     public event EventHandler OnGamePaused;
@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
         GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
 
         eventTimer = eventTimerMax;
+
+        musicManager = GameObject.FindGameObjectWithTag("MusicManager");
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
@@ -74,8 +76,17 @@ public class GameManager : MonoBehaviour
             case State.Starting:
                 startingTimer -= Time.deltaTime;
                 if (startingTimer <= 0) {
-                    musicManager.SetAndPlaySound("RoundStart");
+
+                    if(musicManager.GetComponent<MusicManager>().activeAudio.clip.name != "InGame") {
+
+                        musicManager.GetComponent<MusicManager>().Stop();
+                        musicManager.GetComponent<MusicManager>().SetAndPlayMusic("InGame");
+                        musicManager.GetComponent<MusicManager>().SetAndPlaySound("RoundStart");
+
+                    }
+
                     state = State.Playing;
+                    musicManager.GetComponent<MusicManager>().SetAndPlaySound("RoundStart");
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
                     GameInput.Instance.EnableMovement();
                 }
