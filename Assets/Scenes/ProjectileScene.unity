@@ -7077,7 +7077,7 @@ GameObject:
   - component: {fileID: 5633697952510120836}
   m_Layer: 0
   m_Name: Base
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7466,7 +7466,7 @@ GameObject:
   - component: {fileID: 6061928639948661553}
   m_Layer: 0
   m_Name: Box Collider (10)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7511,7 +7511,7 @@ GameObject:
   - component: {fileID: 6061928640071543609}
   m_Layer: 0
   m_Name: Box Collider (14)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7543,7 +7543,7 @@ GameObject:
   - component: {fileID: 6061928640100173828}
   m_Layer: 0
   m_Name: BaseCollider
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7588,7 +7588,7 @@ GameObject:
   - component: {fileID: 6061928640106419052}
   m_Layer: 0
   m_Name: Box Collider (1)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7633,7 +7633,7 @@ GameObject:
   - component: {fileID: 6061928640125222975}
   m_Layer: 0
   m_Name: Box Collider (13)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7678,7 +7678,7 @@ GameObject:
   - component: {fileID: 6061928640447359616}
   m_Layer: 0
   m_Name: Box Collider (12)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7723,7 +7723,7 @@ GameObject:
   - component: {fileID: 6061928640591009438}
   m_Layer: 0
   m_Name: Box Collider (16)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7768,7 +7768,7 @@ GameObject:
   - component: {fileID: 6061928640689072842}
   m_Layer: 0
   m_Name: Box Collider (7)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7813,7 +7813,7 @@ GameObject:
   - component: {fileID: 6061928640718581889}
   m_Layer: 0
   m_Name: Box Collider (3)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7861,7 +7861,7 @@ GameObject:
   - component: {fileID: 6061928640794919659}
   m_Layer: 0
   m_Name: Colliders
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7906,7 +7906,7 @@ GameObject:
   - component: {fileID: 6061928640960348227}
   m_Layer: 0
   m_Name: Box Collider (11)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7951,7 +7951,7 @@ GameObject:
   - component: {fileID: 6061928641086707244}
   m_Layer: 0
   m_Name: Box Collider (8)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7996,7 +7996,7 @@ GameObject:
   - component: {fileID: 6061928641410172059}
   m_Layer: 0
   m_Name: Box Collider (4)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8041,7 +8041,7 @@ GameObject:
   - component: {fileID: 6061928641558170875}
   m_Layer: 0
   m_Name: Box Collider (6)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8086,7 +8086,7 @@ GameObject:
   - component: {fileID: 6061928641626924300}
   m_Layer: 0
   m_Name: Box Collider
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8118,7 +8118,7 @@ GameObject:
   - component: {fileID: 6061928641659953342}
   m_Layer: 0
   m_Name: Colliders
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8163,7 +8163,7 @@ GameObject:
   - component: {fileID: 6061928641682594243}
   m_Layer: 0
   m_Name: Box Collider (5)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8208,7 +8208,7 @@ GameObject:
   - component: {fileID: 6061928641699486144}
   m_Layer: 0
   m_Name: Box Collider (15)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8253,7 +8253,7 @@ GameObject:
   - component: {fileID: 6061928641805024637}
   m_Layer: 0
   m_Name: Box Collider (9)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8308,7 +8308,7 @@ GameObject:
   - component: {fileID: 6061928641830379117}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8353,7 +8353,7 @@ GameObject:
   - component: {fileID: 6061928641993427033}
   m_Layer: 0
   m_Name: Box Collider (2)
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8371,7 +8371,7 @@ GameObject:
   - component: {fileID: 5763642750396616161}
   m_Layer: 0
   m_Name: Teeth
-  m_TagString: Crank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
