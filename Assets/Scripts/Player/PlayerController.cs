@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour, IHasHealth
     private float healthCurrent;
     public event EventHandler<IHasHealth.OnHealthChangedEventArgs> OnHealthChanged;
     private bool isDead;
+
+    public int enemiesKilled;
     # endregion
 
     private Crank selectedCrank;
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour, IHasHealth
         rb = GetComponent<Rigidbody>();
 
         musicManager = GameObject.FindGameObjectWithTag("MusicManager");
+        enemiesKilled = 0;
     }
 
     private void Start()
@@ -174,6 +177,8 @@ public class PlayerController : MonoBehaviour, IHasHealth
                 Destroy(effect, 3f);
                 musicManager.GetComponent<MusicManager>().SetAndPlaySound("EnemyDeath");
                 Destroy(obj.gameObject.transform.parent.gameObject);
+                enemiesKilled++;
+
                 rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
                 rb.AddForce(new Vector3(0f, (jumpPower - 1), 0f), ForceMode.Impulse);
                 healthCurrent += obj.gameObject.transform.parent.gameObject.GetComponent<enemy>().GetPlayerHeal();
