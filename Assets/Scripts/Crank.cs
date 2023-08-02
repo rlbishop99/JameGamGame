@@ -8,12 +8,14 @@ public class Crank : MonoBehaviour
     public List<Transform> downGears;
 
     public GameObject father;
+    private GameObject musicManager;
     private bool isLocked = true;
     private float currentRotation = 0f;
     private const float totalRotation = 360f;
 
     private void Awake()
     {
+        musicManager = GameObject.FindGameObjectWithTag("MusicManager");
         downGears.Clear();
     }
 
@@ -35,6 +37,7 @@ public class Crank : MonoBehaviour
 
     public void CrankUp()
     {
+        musicManager.GetComponent<MusicManager>().SetAndPlaySound("Crank");
         isLocked = false;
         foreach (Transform gear in downGears)
         {

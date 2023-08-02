@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class GameOverUI : MonoBehaviour
 {
+
+    public GameObject musicManager;
+
     private void Start() {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
 
         Hide();
+
+        musicManager = GameObject.FindGameObjectWithTag("MusicManager");
     }
 
     private void GameManager_OnStateChanged(object sender, System.EventArgs e) {
@@ -27,6 +32,8 @@ public class GameOverUI : MonoBehaviour
 
     public void ToMainMenu() {
         Debug.Log("Going to Main Menu.");
+        musicManager.GetComponent<MusicManager>().Stop();
+        musicManager.GetComponent<MusicManager>().SetAndPlayMusic("MainMenu");
         Time.timeScale = 1f;
         Loader.Load(Loader.Scene.MainMenu);
 

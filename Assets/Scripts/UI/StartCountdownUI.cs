@@ -7,11 +7,16 @@ public class StartCountdownUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text countdownText;
 
+    public GameObject musicManager;
+    private float timeBetweenTicks = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;    
         Hide();
+
+        musicManager = GameObject.FindGameObjectWithTag("MusicManager");
     }
 
     private void GameManager_OnStateChanged(object sender, System.EventArgs e) {
@@ -23,6 +28,16 @@ public class StartCountdownUI : MonoBehaviour
     }
 
     private void Update() {
+
+        timeBetweenTicks -= Time.deltaTime;
+
+        if(timeBetweenTicks <= 0){
+
+            musicManager.GetComponent<MusicManager>().SetAndPlaySound("TickDown");
+            timeBetweenTicks = 1f;
+
+        }
+
         int countdownNumber = Mathf.CeilToInt(GameManager.Instance.GetStartingTimer());
         countdownText.text = countdownNumber.ToString();
     }

@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour, IHasHealth
     # region Managers
     [SerializeField] private GameInput gameInput;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameObject musicManager;
     # endregion
 
     # region Stats
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour, IHasHealth
         Instance = this;
 
         rb = GetComponent<Rigidbody>();
+
+        musicManager = GameObject.FindGameObjectWithTag("MusicManager");
     }
 
     private void Start()
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour, IHasHealth
         rb.AddForce(new Vector3(0f, jumpPower, 0f), ForceMode.Impulse);
         canJump = 0f;
         resetJump = 0f;
+        musicManager.GetComponent<MusicManager>().SetAndPlaySound("Jump");
     }
 
     private void Update()
@@ -168,7 +172,9 @@ public class PlayerController : MonoBehaviour, IHasHealth
 
                 GameObject effect = (GameObject)Instantiate(obj.gameObject.GetComponentInParent<enemy>().deathEffect, transform.position, Quaternion.identity);
                 Destroy(effect, 3f);
+                musicManager.GetComponent<MusicManager>().SetAndPlaySound("EnemyDeath");
                 Destroy(obj.gameObject.transform.parent.gameObject);
+                rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
                 rb.AddForce(new Vector3(0f, (jumpPower - 1), 0f), ForceMode.Impulse);
                 healthCurrent += obj.gameObject.transform.parent.gameObject.GetComponent<enemy>().GetPlayerHeal();
                 healthCurrent = Mathf.Min(healthCurrent, healthMax);
@@ -205,6 +211,7 @@ public class PlayerController : MonoBehaviour, IHasHealth
     }
 
     private void Die() {
+        musicManager.GetComponent<MusicManager>().SetAndPlaySound("PlayerDeath");
         isDead = true;
     }
 
