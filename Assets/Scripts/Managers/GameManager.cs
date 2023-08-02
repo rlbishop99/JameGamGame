@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    public MusicManager musicManager;
+
     public event EventHandler OnStateChanged;
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnpaused;
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
             case State.Starting:
                 startingTimer -= Time.deltaTime;
                 if (startingTimer <= 0) {
+                    musicManager.SetAndPlaySound("RoundStart");
                     state = State.Playing;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
                     GameInput.Instance.EnableMovement();

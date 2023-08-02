@@ -11,6 +11,7 @@ TagManager:
   - GearHit
   - FullGear
   - Crank
+  - MusicManager
   layers:
   - Default
   - TransparentFX

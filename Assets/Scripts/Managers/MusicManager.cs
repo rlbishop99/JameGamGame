@@ -4,15 +4,54 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public AudioSource activeAudio;
+
+    public AudioClip[] music;
+    public AudioClip[] sounds;
+
+    private AudioClip clip;
+
+    private void Start() {
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void SetAndPlaySound(string name) {
+
+        switch(name){
+
+            case "ButtonSelect":
+                clip = sounds[0];
+                break;
+            case "Crank":
+                clip = sounds[1];
+                break;
+            case "EnemyDeath":
+                clip = sounds[2];
+                break;
+            case "GearDown":
+                clip = sounds[3];
+                break;
+            case "Jump":
+                clip = sounds[4];
+                break;
+            case "Spawn":
+                clip = sounds[5];
+                break;
+            case "PlayerDeath":
+                clip = sounds[6];
+                break;
+            case "TickDown":
+                clip = sounds[7];
+                break;
+            case "RoundStart":
+                clip = sounds[8];
+                break;
+        }
+
+        Debug.Log(clip.name);
+
+        activeAudio.PlayOneShot(clip);
+
     }
+
 }

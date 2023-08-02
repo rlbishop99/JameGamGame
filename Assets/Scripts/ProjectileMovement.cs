@@ -12,11 +12,13 @@ public class ProjectileMovement : MonoBehaviour
 
     public GameObject enemy;
     public GameObject crank;
+    public GameObject musicManager;
     public bool isEnemy = false;
 
     private void Start()
     {
         crank = GameObject.FindGameObjectWithTag("Crank");
+        musicManager = GameObject.FindGameObjectWithTag("MusicManager");
         startTime = Time.time;
     }
 
@@ -74,12 +76,14 @@ public class ProjectileMovement : MonoBehaviour
         if(other.gameObject.tag == "GearHit" && !isEnemy) {
 
             other.gameObject.GetComponentInParent<drop>().isLocked = false;
+            musicManager.GetComponent<MusicManager>().SetAndPlaySound("GearDown");
             AddParentToCrank(other.gameObject, "FullGear");
             Destroy(gameObject);
 
         } else if(other.gameObject.tag == "GearHit" && isEnemy) {
 
             Instantiate(enemy, other.transform.position, Quaternion.identity);
+            musicManager.GetComponent<MusicManager>().SetAndPlaySound("Spawn");
             Destroy(gameObject);
         
         }

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 
 public class TutorialUI : MonoBehaviour {
+
+    public MusicManager musicManager;
+
     private void Start() {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
 
@@ -22,6 +25,7 @@ public class TutorialUI : MonoBehaviour {
     }
 
     private void Hide() {
+        musicManager.SetAndPlaySound("ButtonSelect");
         gameObject.SetActive(false);
     }
 }
